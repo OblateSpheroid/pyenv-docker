@@ -1,4 +1,4 @@
-VERSION ?= 0.2.1
+VERSION ?= 0.2.2
 REPO_NAME = oblatespheroid/pyenv
 
 build:
@@ -6,8 +6,10 @@ build:
 	docker tag ${REPO_NAME}:${VERSION} ${REPO_NAME}:latest 
 
 push:
-	docker push ${REPO_NAME}:${VERSION}
-	docker push ${REPO_NAME}:latest
+	# Dockerhub will autobuild version numbers. After commit, run make push
+	git tag v${VERSION}
+	git push
+	git push --tags | : # don't force overwritting tags, fail quietly
 
 test:
 	@docker run -it --name=pyenv_cont ${REPO_NAME}:latest ash -lc "pyenv versions" || docker rm pyenv_cont

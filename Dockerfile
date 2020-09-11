@@ -1,6 +1,6 @@
 FROM alpine:latest
 
-RUN apk add bash bzip2-dev curl gcc git libc-dev make openssl-dev readline-dev sqlite-dev zlib-dev
+RUN apk add --no-cache bash bzip2-dev curl gcc git libc-dev make openssl-dev readline-dev sqlite-dev zlib-dev
 
 RUN adduser -D pyenv
 USER pyenv
@@ -13,7 +13,7 @@ eval "$(pyenv virtualenv-init -)"\n' >> $HOME/.profile
 
 RUN curl https://pyenv.run | bash
 RUN cd $HOME/.pyenv && \
-git remote add new https://github.com/OblateSpheroid/pyenv.git && \
+git remote add new https://github.com/oblatespheroid/pyenv.git && \
 git fetch --all && \
 git reset --hard new/master
 
