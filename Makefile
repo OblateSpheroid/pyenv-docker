@@ -9,7 +9,7 @@ push:
 	# Dockerhub will autobuild version numbers. After commit, run make push
 	git tag v${VERSION}
 	git push
-	git push --tags | : # don't force overwritting tags, fail quietly
+	git push --tags
 
 test:
 	@docker run -it --name=pyenv_cont ${REPO_NAME}:latest ash -lc "pyenv versions" || docker rm pyenv_cont

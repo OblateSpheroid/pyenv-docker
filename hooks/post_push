@@ -1,0 +1,9 @@
+#!/bin/bash
+set -e
+
+# Parse image name for repo name
+repoName=$(awk -F: '{ print $1 }' <<< ${IMAGE_NAME})
+
+# Tag new build with 'latest'
+docker tag ${IMAGE_NAME} ${repoName}:latest
+docker push ${repoName}:latest
