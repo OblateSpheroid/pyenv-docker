@@ -1,5 +1,6 @@
 VERSION ?= 0.2.3
 REPO_NAME = oblatespheroid/pyenv
+CMD = python --version
 
 build:
 	docker build -t ${REPO_NAME}:${VERSION} .
@@ -11,9 +12,11 @@ push:
 	git push
 	git push --tags
 
+run:
+	@docker run --rm -e PYENV_AUTOINSTALL=1 ${REPO_NAME} ash -lc "${CMD}"
+
 test:
-	@docker run -it --name=pyenv_cont ${REPO_NAME}:latest ash -lc "pyenv versions" || docker rm pyenv_cont
-	@docker run -it --name=pyenv_cont2 ${REPO_NAME}:latest ash -lc "PYENV_AUTOINSTALL=1 PYENV_VERSION=3.6.10 python --version" || docker rm pyenv_cont2
-	@docker rm pyenv_cont pyenv_cont2 1>/dev/null
+	@docker run --rm ${REPO_NAME}:latest ash -lc "pyenv versions"
+	@docker run --rm -e PYENV_AUTOINSTALL=1 ${REPO_NAME}:latest ash -lc "echo 3.6.10>.python-version && python --version"
 
 .PHONY: all test

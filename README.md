@@ -19,5 +19,5 @@ docker run --rm oblatespheroid/pyenv ash -lc "echo 3.6.10>.python-version && PYE
 ```
 or from this folder, simply:
 ```
-make run CMD="echo 3.6.10>.python-version && PYENV_AUTOINSTALL=1 python --version"
+make run CMD="echo 3.6.10>.python-version && python --version"
 ```
