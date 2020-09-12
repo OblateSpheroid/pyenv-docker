@@ -1,9 +1,11 @@
 #!/bin/bash
+
+# This hook tags a newly pushed image with 'latest'
 set -e
 
-# Parse image name for repo name
 repoName=$(awk -F: '{ print $1 }' <<< ${IMAGE_NAME})
 
-# Tag new build with 'latest'
 docker tag ${IMAGE_NAME} ${repoName}:latest
-docker push ${repoName}:latest
+echo "Successfully tagged ${repoName}:latest"
+docker push ${repoName}:latest 1>&2
+echo "Successfully pushed ${repoName}:latest"
